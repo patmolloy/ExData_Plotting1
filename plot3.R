@@ -12,6 +12,8 @@ require(sqldf)
 file <- c("./data/household_power_consumption.txt")
 data_subset <- read.csv.sql(file, header = T, sep=";", sql = "select * from file where (Date == '1/2/2007' OR Date == '2/2/2007')" )
 
+data_subset[data_subset == "?"] <- NA # deal with the question marks in the data and change to NA
+
 data_subset$Date <- as.Date(data_subset$Date, format="%d/%m/%Y")
 globalActivePower <- as.numeric(data_subset$Global_active_power)
 
